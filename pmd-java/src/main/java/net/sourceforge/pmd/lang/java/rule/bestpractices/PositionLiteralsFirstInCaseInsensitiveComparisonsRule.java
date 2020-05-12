@@ -4,7 +4,8 @@
 
 package net.sourceforge.pmd.lang.java.rule.bestpractices;
 
-public class PositionLiteralsFirstInCaseInsensitiveComparisonsRule extends AbstractPositionLiteralsFirstInComparisons {
+@Deprecated
+public class PositionLiteralsFirstInCaseInsensitiveComparisonsRule extends LiteralsFirstInComparisonsRule {
 
     public PositionLiteralsFirstInCaseInsensitiveComparisonsRule() {
         super(".equalsIgnoreCase");

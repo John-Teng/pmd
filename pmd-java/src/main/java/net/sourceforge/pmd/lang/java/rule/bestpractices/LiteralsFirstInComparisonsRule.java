@@ -20,13 +20,22 @@ import net.sourceforge.pmd.lang.java.ast.ASTPrimarySuffix;
 import net.sourceforge.pmd.lang.java.ast.JavaNode;
 import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
 
-class AbstractPositionLiteralsFirstInComparisons extends AbstractJavaRule {
+public class LiteralsFirstInComparisonsRule extends AbstractJavaRule {
 
+    private static final String EQUALS = ".equals";
+    private static final String EQUALS_IGNORE_CASE = ".equalsIgnoreCase";
+    @Deprecated
     private final String equalsImage;
 
-    AbstractPositionLiteralsFirstInComparisons(String equalsImage) {
+    @Deprecated
+    LiteralsFirstInComparisonsRule(String equalsImage) {
         addRuleChainVisit(ASTPrimaryExpression.class);
         this.equalsImage = equalsImage;
+    }
+
+    public LiteralsFirstInComparisonsRule() {
+        addRuleChainVisit(ASTPrimaryExpression.class);
+        this.equalsImage = null;
     }
 
     @Override
@@ -35,7 +44,7 @@ class AbstractPositionLiteralsFirstInComparisons extends AbstractJavaRule {
         ASTPrimarySuffix primarySuffix = node.getFirstChildOfType(ASTPrimarySuffix.class);
         if (primaryPrefix != null && primarySuffix != null) {
             ASTName name = primaryPrefix.getFirstChildOfType(ASTName.class);
-            if (name == null || !name.getImage().endsWith(equalsImage)) {
+            if (name == null || isIrrelevantImage(name.getImage())) {
                 return data;
             }
             if (!isSingleStringLiteralArgument(primarySuffix)) {
@@ -47,6 +56,13 @@ class AbstractPositionLiteralsFirstInComparisons extends AbstractJavaRule {
             addViolation(data, node);
         }
         return node;
+    }
+
+    private boolean isIrrelevantImage(String image) {
+        if (equalsImage == null) {
+            return !image.endsWith(EQUALS) && !image.endsWith(EQUALS_IGNORE_CASE);
+        }
+        return !image.endsWith(equalsImage);
     }
 
     private boolean isWithinNullComparison(ASTPrimaryExpression node) {

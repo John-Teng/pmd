@@ -4,7 +4,8 @@
 
 package net.sourceforge.pmd.lang.java.rule.bestpractices;
 
-public class PositionLiteralsFirstInComparisonsRule extends AbstractPositionLiteralsFirstInComparisons {
+@Deprecated
+public class PositionLiteralsFirstInComparisonsRule extends LiteralsFirstInComparisonsRule {
 
     public PositionLiteralsFirstInComparisonsRule() {
         super(".equals");
