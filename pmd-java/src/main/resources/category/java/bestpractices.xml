@@ -882,6 +882,31 @@ public class MyTest {
         </example>
     </rule>
 
+    <rule name="LiteralsFirstInComparisons"
+          language="java"
+          since="6.23"
+          message="Position literals first in String comparisons (for case sensitive and insensitive)"
+          class="net.sourceforge.pmd.lang.java.rule.bestpractices.LiteralsFirstInComparisonsRule"
+          externalInfoUrl="${pmd.website.baseurl}/pmd_rules_java_bestpractices.html#literalsfirstincomparisons">
+        <description>
+            Position literals first in comparisons, if the second argument is null then NullPointerExceptions
+            can be avoided, they will just return false.
+        </description>
+        <priority>3</priority>
+        <example>
+            <![CDATA[
+class Foo {
+  boolean bar(String x) {
+    return x.equals("2"); // should be "2".equals(x)
+  }
+  boolean bar2(String x) {
+    return x.equalsIgnoreCase("2"); // should be "2".equalsIgnoreCase(x)
+  }
+}
+]]>
+        </example>
+    </rule>
+
     <rule name="LooseCoupling"
           since="0.7"
           message="Avoid using implementation types like ''{0}''; use the interface instead"
@@ -1016,10 +1041,11 @@ String name,
           since="5.1"
           message="Position literals first in String comparisons for EqualsIgnoreCase"
           class="net.sourceforge.pmd.lang.java.rule.bestpractices.PositionLiteralsFirstInCaseInsensitiveComparisonsRule"
-          externalInfoUrl="${pmd.website.baseurl}/pmd_rules_java_bestpractices.html#positionliteralsfirstincaseinsensitivecomparisons">
+          externalInfoUrl="${pmd.website.baseurl}/pmd_rules_java_bestpractices.html#positionliteralsfirstincaseinsensitivecomparisons"
+          deprecated="true">
         <description>
 Position literals first in comparisons, if the second argument is null then NullPointerExceptions
-can be avoided, they will just return false.
+can be avoided, they will just return false. This rule is replaced by the more generic rule LiteralsFirstInComparisons.
         </description>
         <priority>3</priority>
         <example>
@@ -1038,10 +1064,11 @@ class Foo {
           since="3.3"
           message="Position literals first in String comparisons"
           class="net.sourceforge.pmd.lang.java.rule.bestpractices.PositionLiteralsFirstInComparisonsRule"
-          externalInfoUrl="${pmd.website.baseurl}/pmd_rules_java_bestpractices.html#positionliteralsfirstincomparisons">
+          externalInfoUrl="${pmd.website.baseurl}/pmd_rules_java_bestpractices.html#positionliteralsfirstincomparisons"
+          deprecated="true">
         <description>
 Position literals first in comparisons, if the second argument is null then NullPointerExceptions
-can be avoided, they will just return false.
+can be avoided, they will just return false. This rule is replaced by the more generic rule LiteralsFirstInComparisons.
         </description>
         <priority>3</priority>
         <example>
